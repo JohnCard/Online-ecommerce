@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/sass_reader.css">
+    <title>Ecommerce</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="img/navbar_ecommerce_icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    Ecommerce</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <form class="d-flex mt-3" role="search" id="search_form">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search_input"/>
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div id="carouselExampleDark" class="carousel carousel-dark slide mt-100">
+        <div class="carousel-inner w-75 mx-auto">
+            <div class="carousel-item active" data-bs-interval="10000">
+                <div class="row">
+                    <div class="col-xxl-8">
+                        <div class="bg-body">
+                            <h5>Desktop MacBook</h5>
+                            <p>Work comfortably from home with a fixed MacBook setup, included mouse, and expanded storage — perfect for your full workspace.</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4">
+                        <img src="img/desktop_macbook.jpg" class="h-250" alt="Desktop MacBook">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="10000">
+                <div class="row">
+                    <div class="col-xxl-8">
+                        <div class="bg-body">
+                            <h5>¡Phone</h5>
+                            <p>Stay connected in style with a sleek, high-performance iPhone. Capture stunning photos, multitask with ease, and enjoy all-day battery life.</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4">
+                        <img src="img/iphone.avif" class="h-250" alt="¡Phone">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="10000">
+                <div class="row">
+                    <div class="col-xxl-8">
+                        <div class="bg-body">
+                            <h5>Over ear headphones</h5>
+                            <p>Enjoy your audio your way — full noise cancellation for private calls, music, focused work, or even your workout sessions.</p>
+                        </div>
+                    </div>
+                    <div class="col-xxl-4">
+                        <img src="img/over_ear_headphones.webp" class="h-250" alt="Over ear headphones">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <h1 class="mt-1 text-center">Gallery</h1>
+    <main class="container">
+        <div class="row my-5">
+            <div class="col-xxl-4">
+                <div class="card">
+                    <img src="../img/desktop_macbook.jpg" class="card-img-top max-h-240" alt="desktop macbook">
+                    <div class="card-body">
+                        <h5 class="card-title">Desktop Macbook</h5>
+                        <p class="card-text">Experience cutting-edge performance with the new MacBook Desktop. Equipped with a powerful M1 chip, it delivers seamless multitasking, incredible graphics, and long-lasting battery life. Perfect for professionals and creatives alike.</p>
+                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4">
+                <div class="card">
+                    <img src="../img/iphone.avif" class="card-img-top max-h-240" alt="desktop macbook">
+                    <div class="card-body">
+                        <h5 class="card-title">¡Phone</h5>
+                        <p class="card-text">Discover the next generation of smartphones with the latest iPhone. Featuring a sleek design, ultra-fast A15 Bionic chip, and exceptional camera quality. Stay connected, productive, and entertained wherever you go.</p>
+                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-4">
+                <div class="card">
+                    <img src="../img/over_ear_headphones.webp" class="card-img-top max-h-240" alt="desktop macbook">
+                    <div class="card-body">
+                        <h5 class="card-title">Over ear headphones</h5>
+                        <p class="card-text">Immerse yourself in premium sound with these over-ear headphones. Designed for comfort and superior audio quality, they offer active noise cancellation and a long battery life. Perfect for music lovers and travelers.</p>
+                        <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-gap-4 mb-5" id="cards_container">
+            <!-- Cards inserted with JavaScript -->
+            <button class="btn btn-light w-75 mx-auto">See all results</button>
+        </div>
+    </main>
+    <div class="container">
+        <div class="row">
+            <h6>Electronics</h6>
+            <p class="fs-12">Amazon.com.mx has a huge selection of electronics for everyone. Shop for TVs, laptops, computer components, tablets, graphics cards, external drives, internal storage, iPads, Bluetooth speakers, headphones, iPhones, cell phones, cases, the Samsung Galaxy S6, and more. We carry top brands like Apple, Samsung, Asus, LG, Sonos, Nikon, Bose, Canon, Garmin, Microsoft, HP, Kingston, Sony, Nexus, and HTC. Looking for the latest in technology? Want to have a blast? We have technology like DJI and Parrot drones, smart watches, and products for home theater enjoyment like Yamaha, Bose, Phillips, sound bars, Sennheiser, and Haier. We also offer TVs like LG and Samsung, 4K TVs, 4K TVs, Smart TVs, headphones, over-ear headphones, supra-aural headphones, in-ear headphones, and over-ear headphones. Cameras for your adventures like GoPro, EOS Rebel, and Nikon. Don't get lost with our selection of GPS devices, including Garmin, Mio, and TomTom.</p>
+        </div>
+    </div>
+    <button class="btn btn-secondary w-100 rounded-0" href="#">Top of page</button>
+    <footer class="container-fluid bg-dark">
+        <div class="container text-light">
+            <div class="row mb-5 pt-5">
+                <div class="col-xxl-3">
+                    <h5>Get to know us</h5>
+                    <ul class="list-group list-unstyled">
+                        <li>Work at amazon</li>
+                        <li>About Amazon</li>
+                        <li>Corporative information</li>
+                        <li>Press Department</li>
+                        <li>Amazon Science</li>
+                    </ul>
+                </div>
+                <div class="col-xxl-3">
+                    <h5>Earn money with us</h5>
+                    <ul class="list-group list-unstyled">
+                        <li>Send on Amazon</li>
+                        <li>Supply for Amazon</li>
+                        <li>Protect and Develop your brand</li>
+                        <li>Flipping an Amazon Handmade</li>
+                        <li>Publish your book on Kindle</li>
+                        <li>Affiliate Program</li>
+                        <li>Advertise your products</li>
+                    </ul>
+                </div>
+                <div class="col-xxl-3">
+                    <h5>We can help you</h5>
+                    <ul class="list-group list-unstyled">
+                        <li>Return or replace products</li>
+                        <li>Manage content and devices</li>
+                        <li>Product Safety and Review Alerts</li>
+                        <li>Gift List</li>
+                        <li>Aid</li>
+                    </ul>
+                </div>
+                <div class="col-xxl-3">
+                    <h5>Payment methods</h5>
+                    <ul class="list-group list-unstyled">
+                        <li>Credit and Debit cards</li>
+                        <li>Gift cards</li>
+                        <li>Cash payment</li>
+                        <li>Payment in months</li>
+                        <li>Payment in Fortnights</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="row justify-content-center my-5">
+                <div class="col-auto me-5">
+                    <img src="img/Amazon_logo.svg.png" alt="Amazon" class="max-w-100">
+                </div>
+                <div class="col-auto ms-5">
+                    <button class="btn btn-outline-dark border text-light">Mexico</button>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center py-3 bg-secondary fs-12 text-light">
+            <a href="#" class="col-auto">Terms of use</a>
+            <span class="col-auto">|</span>
+            <a href="#" class="col-auto">Privace Notice</a>
+            <p class="text-center">© 1996-2025, Amazon.com, Inc. or its affiliates</p>
+        </div>
+    </footer>
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js" type="module"></script>
+    <script src="js/helpers.js" type="module"></script>
+</body>
+</html>

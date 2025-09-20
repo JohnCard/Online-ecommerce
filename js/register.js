@@ -1,0 +1,23 @@
+import { getCookie } from "./helpers.js";
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('register_form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const csrftoken = getCookie('csrftoken');
+            const formData = new FormData(form);
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                body: formData
+            })
+            .then(data => {
+                window.location.href = 'http://127.0.0.1:5500/index.html'
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    }
+});

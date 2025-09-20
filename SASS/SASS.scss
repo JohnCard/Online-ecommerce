@@ -1,0 +1,35 @@
+// Default styles
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+// Margin top list
+
+@for $i from 7 through 250 {
+    .mt-#{$i} {
+        margin-top: #{$i}px;
+    }
+
+    .fs-#{$i} {
+        font-size: #{$i}px;
+    }
+}
+
+@for $i from 3 through 25 {
+    .h-#{$i*50} {
+        height: #{$i*50}px;
+    }
+}
+
+@for $i from 1 through 55 {
+    .max-w-#{$i*20} {
+        max-width: #{$i*20}px;
+    }
+
+    .max-h-#{$i*20} {
+        max-height: #{$i*20}px;
+    }
+}
