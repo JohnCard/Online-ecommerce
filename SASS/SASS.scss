@@ -22,6 +22,10 @@
     .h-#{$i*50} {
         height: #{$i*50}px;
     }
+
+    .min-h-#{$i*50} {
+        min-height: #{$i*50}px;
+    }
 }
 
 @for $i from 1 through 55 {
