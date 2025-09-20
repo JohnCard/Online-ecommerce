@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fetch(form.action, {
                 method: 'POST',
                 headers: {
-                    'X-CSRFToken': csrftoken
+                    'X-CSRFToken': csrftoken,
+                    'Authorization': 'Token 53178c45167ec6e86c74d2e676c743eafb87ddbc'
                 },
                 body: formData
             })
