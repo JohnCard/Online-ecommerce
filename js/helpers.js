@@ -63,7 +63,7 @@ function invalidStrings(arrayStrings) {
 
 function cardTemplate(title, paragraph, category, price, img) {
     img = img.replace('http://127.0.0.1:8000/https%3A', '/')
-    img = img.replace('http://127.0.0.1:8000/img/', '../img/')
+    // img = img.replace('http://127.0.0.1:8000/img/', '../img/')
     return `
     <div class="col-xxl-4">
         <div class="card">
