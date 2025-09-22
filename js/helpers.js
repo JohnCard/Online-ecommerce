@@ -55,13 +55,21 @@ function acortarTexto(texto, maxLongitud) {
   return texto.slice(0, maxLongitud) + '...';
 }
 
+function invalidStrings(arrayStrings) {
+    for (let str of arrayStrings) {
+
+    }
+}
+
 function cardTemplate(title, paragraph, category, price, img) {
+    img = img.replace('http://127.0.0.1:8000/https%3A', '/')
+    img = img.replace('http://127.0.0.1:8000/img/', '../img/')
     return `
     <div class="col-xxl-4">
         <div class="card">
             <div class="row align-items-center min-h-300 px-3">
                 <div class="col-md-4">
-                    <img src="${img.replace('http://127.0.0.1:8000/https%3A', '/')}" class="img-fluid rounded" alt="Desktop MacBook">
+                    <img src="${img}" class="img-fluid rounded" alt="Desktop MacBook">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
