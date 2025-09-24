@@ -84,3 +84,16 @@ manage_container.addEventListener('submit', function(e) {
         deleteForm(id);
     }
 })
+
+let searchForm = document.getElementById('search_form');
+searchForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        manage_container.innerHTML = '';
+        let searchInput = document.getElementById('search_input').value;
+        let listData = mainData(`gallery?price=${eval(searchInput)}`);
+        listData.then(data => {
+            data.data.forEach(item => {
+                manage_container.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
+            })
+        })
+})

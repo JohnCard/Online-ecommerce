@@ -16,7 +16,7 @@ let searchForm = document.getElementById('search_form');
 searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
         cards_container.innerHTML = '';
-        let searchInput = document.getElementById('search_input').value.toLowerCase();
+        let searchInput = document.getElementById('search_input').value;
         let listData = mainData(`gallery?price=${eval(searchInput)}`);
         listData.then(data => {
             data.data.forEach(item => {
