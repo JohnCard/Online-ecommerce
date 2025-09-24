@@ -32,38 +32,25 @@ async function mainData(char){
 }
 
 function categoryOptions(id){
-    let categoriesResponse = mainData('categories')
+    const categoriesResponse = mainData('categories')
     categoriesResponse.then(resp => {
-        if (resp['ok'] == true){
-            let categorySelector = document.querySelector(`.category_selector-${id}`);
-            const data = resp['data']
-            data.forEach(item => {
-                categorySelector.innerHTML += `<option value="${item.id}">${item.name}</option>`;
-            })
-        }
-        else{
-            let categorySelector = document.querySelector(`.category_selector-${id}`);
-            categorySelector.innerHTML = `<option>Something went wrong: ${resp['message']}</option>`
-        }
+        const categorySelector = document.getElementById(id);
+        const data = resp['data']
+        data.forEach(item => {
+            categorySelector.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+        })
     })
 }
 
-function acortarTexto(texto, maxLongitud) {
+function shortenText(texto, maxLongitud) {
   if (texto.length <= maxLongitud) {
     return texto;
   }
   return texto.slice(0, maxLongitud) + '...';
 }
 
-function invalidStrings(arrayStrings) {
-    for (let str of arrayStrings) {
-
-    }
-}
-
 function cardTemplate(title, paragraph, category, price, img) {
     img = img.replace('http://127.0.0.1:8000/https%3A', '/')
-    img = img.replace('http://127.0.0.1:8000/img/', 'img/')
     return `
     <div class="col-xxl-4">
         <div class="card">
@@ -74,7 +61,7 @@ function cardTemplate(title, paragraph, category, price, img) {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">${title}</h5>
-                        <p class="card-text">${acortarTexto(paragraph, 250)}</p>
+                        <p class="card-text">${shortenText(paragraph, 100)}</p>
                         <p class="card-text">Category - ${category}</p>
                         <p class="card-text">Price - <mark>$${price}</mark></p>
                     </div>
@@ -84,4 +71,4 @@ function cardTemplate(title, paragraph, category, price, img) {
     </div>`;
 }
 
-export { mainData, getCookie, acortarTexto, cardTemplate };
+export { mainData, getCookie, cardTemplate, categoryOptions };

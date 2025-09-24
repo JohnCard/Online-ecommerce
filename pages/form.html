@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/sass_reader.css">
+    <link rel="icon" href="../img/navbar_ecommerce_icon.png" type="image/jpeg">
     <title>Form</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
         <nav class="navbar navbar-expand-md bg-body-tertiary fixed-top">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <img src="img/navbar_ecommerce_icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    <img src="../img/navbar_ecommerce_icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                     Ecommerce</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -26,7 +27,7 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -102,7 +103,7 @@
         <div class="row">
             <h1 class="text-center mt-4 fw-light">Create new item</h1>
             <div class="col-4 mx-auto mt-25">
-                <form action="http://127.0.0.1:8000/ecommerce/gallery" id="register_form">
+                <form action="http://127.0.0.1:8000/ecommerce/gallery-create" id="register_form">
                     <div class="mb-3">
                         <label for="name">Type a name</label>
                         <input type="text" name="name" id="name" class="form-control mt-2" aria-describedby="product-name">
@@ -115,11 +116,11 @@
                         <label for="price">Price</label>
                         <input type="number" name="price" id="price"  class="form-control mt-2" aria-describedby="product-price">
                     </div>
-                    <!-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="category">Category</label>
-                        <select name="category" id="category" class="form-select mt-2" aria-label="Default select">
+                        <select name="category" id="category" class="form-select mt-2" aria-label="Category select form section">
                         </select>
-                    </div> -->
+                    </div>
                     <input type="submit" value="Create item" class="btn btn-primary d-block w-100">
                 </form>
             </div>

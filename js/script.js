@@ -10,14 +10,14 @@ itemsList.then(data => {
         cards_container.insertAdjacentHTML('afterbegin', cardTemplate(item.name, item.description, item.category.name, item.price, item.image));
     })
 })
-.catch(error => cards_container.innerHTML = `<h2 class="text-center fw-bold">No items found: ${error}</h2>`);
+.catch(error => cards_container.innerHTML = `<h3 class="text-center fw-bold">No items found: ${error}</h2>`);
 
 let searchForm = document.getElementById('search_form');
 searchForm.addEventListener('submit', function(event) {
         event.preventDefault();
         cards_container.innerHTML = '';
         let searchInput = document.getElementById('search_input').value.toLowerCase();
-        let listData = mainData(`gallery?category__name=${searchInput}`);
+        let listData = mainData(`gallery?price=${eval(searchInput)}`);
         listData.then(data => {
             data.data.forEach(item => {
                 cards_container.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image);

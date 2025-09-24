@@ -1,4 +1,6 @@
-import { getCookie } from "./helpers.js";
+import { getCookie, categoryOptions } from "./helpers.js";
+
+categoryOptions('category')
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('register_form');

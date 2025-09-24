@@ -43,17 +43,17 @@ function deleteForm(id){
 function PutDelTemplate(id, title, description, price, img) {
     return `
     <div class="col-xxl-4">
-        <form id="update_form-${id}" class="mb-2 ${id}">
+        <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
                 <img src="${img.replace('http://127.0.0.1:8000/https%3A', '/')}" class="mx-auto " alt="${title}-img" width="250" height="200">
                 <input type="text" name="name" class="form-control mb-3" value="${title}">
                 <textarea name="description" class="form-control mb-3">${description}</textarea>
-                <input type="number" name="price" class="form-control mb-3" placeholder="${price}">
+                <input type="number" name="price" class="form-control mb-3" value="${price}">
                 <input type="submit" class="btn btn-success w-100" value="Update">
             </fieldset>
         </form>
-        <form id="delete_form-${id}" class="${id}">
+        <form id="delete_form-${id}">
             <input type="submit" class="btn btn-danger w-100" value="Delete">
         </form>
     </div>`;
