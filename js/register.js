@@ -1,6 +1,8 @@
-import { getCookie, categoryOptions } from "./helpers.js";
+import { getCookie, categoryOptions, showAlert } from "./helpers.js";
 
-categoryOptions('category')
+const inputSelector = document.getElementById('category')
+
+categoryOptions(inputSelector)
 
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('register_form');
@@ -20,7 +22,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 window.location.href = 'http://127.0.0.1:5500/index.html'
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => 
+                showAlert('Backend server not running')
+            );
         });
     }
 });

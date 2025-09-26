@@ -40,8 +40,8 @@
                             </li>
                         </ul>
                         <form class="d-flex mt-3" role="search" id="search_form">
-                            <input class="form-control me-2" type="search" placeholder="83745" aria-label="Search" id="search_input"/>
-                            <button class="btn btn-outline-success w-100" type="submit">Filter products by price</button>
+                            <input class="form-control me-2" type="search" placeholder="Type a name" aria-label="Search" id="search_input"/>
+                            <button class="btn btn-outline-success w-100" type="submit">Filter items</button>
                         </form>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
     </header>
     <div id="carouselExampleDark" class="carousel carousel-dark slide mt-100">
         <div class="carousel-inner w-75 mx-auto">
-            <div class="carousel-item active" data-bs-interval="10000">
+            <div class="carousel-item active" data-bs-interval="5000">
                 <div class="row">
                     <div class="col-xxl-8">
                         <div class="bg-body">
@@ -60,32 +60,6 @@
                     </div>
                     <div class="col-xxl-4">
                         <img src="../img/desktop_macbook.jpg" class="h-250" alt="Desktop MacBook">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="10000">
-                <div class="row">
-                    <div class="col-xxl-8">
-                        <div class="bg-body">
-                            <h5>¡Phone</h5>
-                            <p>Stay connected in style with a sleek, high-performance iPhone. Capture stunning photos, multitask with ease, and enjoy all-day battery life.</p>
-                        </div>
-                    </div>
-                    <div class="col-xxl-4">
-                        <img src="../img/iphone.avif" class="h-250" alt="¡Phone">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item" data-bs-interval="10000">
-                <div class="row">
-                    <div class="col-xxl-8">
-                        <div class="bg-body">
-                            <h5>Over ear headphones</h5>
-                            <p>Enjoy your audio your way — full noise cancellation for private calls, music, focused work, or even your workout sessions.</p>
-                        </div>
-                    </div>
-                    <div class="col-xxl-4">
-                        <img src="../img/over_ear_headphones.webp" class="h-250" alt="Over ear headphones">
                     </div>
                 </div>
             </div>
@@ -100,6 +74,21 @@
         </button>
     </div>
     <div class="container mb-5">
+        <div class="row">
+            <div class="col-xxl-3">
+                <form role="search" id="filter_category_form" class="d-flex">
+                    <select id="filter_category_select" class="form-select me-5" aria-label="Filter category selector"></select>
+                    <button class="btn btn-success" type="submit">Filter category</button>
+                </form>
+            </div>
+            <div class="col-xxl-6">
+                <form role="search" id="filter_price_gallery" class="d-flex">
+                    <input type="number" id="min_val" class="form-control" placeholder="Minimum value">
+                    <input type="number" id="max_val" class="form-control" placeholder="Maximum value">
+                    <button class="btn btn-success" type="submit">Filter</button>
+                </form>
+            </div>
+        </div>
         <div class="row" id="manage_container">
         </div>
     </div>
@@ -167,6 +156,24 @@
             <p class="text-center">© 1996-2025, Amazon.com, Inc. or its affiliates</p>
         </div>
     </footer>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+
+    <div id="alert-toast" class="alert alert-warning d-flex align-items-center max-h-80 max-w-480 position-fixed abs-bottom-60 end-0 p-3" role="alert" style="display: none;">
+        <svg class="bi flex-shrink-0 max-h-60 max-w-100" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div id="alert-toast-error">
+            
+        </div>
+    </div>
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../js/helpers.js" type="module"></script>
     <script src="../js/manage.js" type="module"></script>

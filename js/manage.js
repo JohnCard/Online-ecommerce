@@ -1,80 +1,76 @@
-import { mainData, getCookie } from "./helpers.js";
+import { mainData, showAlert, categoryOptions, updateForm, deleteForm, PutDelTemplate, carouselInner, carouselItem } from "./helpers.js";
 
-// Update and Delete forms handling
+// HTML container
+const manageContainer = document.getElementById('manage_container');
 
-function updateForm(id){
-    const csrftoken = getCookie('csrftoken');
-    let form = document.getElementById(id);
-    const formData = new FormData(form);
-
-    id = id.split('-')[1]
-
-    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
-        method: 'PUT',
-        headers: {
-            'X-CSRFToken': csrftoken
-        },
-        body: formData
-    })
-    .then(data => {
-        window.location.href = 'http://127.0.0.1:5500/index.html'
-    })
-    .catch(error => console.error(error));
-}
-
-function deleteForm(id){
-    const csrftoken = getCookie('csrftoken');
-
-    id = id.split('-')[1]
-
-    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
-    method: 'DELETE',
-    headers: {
-        'X-CSRFToken': csrftoken
-    },
-    })
-    .then(data => {
-        window.location.href = 'http://127.0.0.1:5500/index.html'
-    }
-    )
-    .catch(error => console.error(error));
-}
-
-function PutDelTemplate(id, title, description, price, img) {
-    return `
-    <div class="col-xxl-4">
-        <form id="update_form-${id}" class="mb-2">
-            <fieldset>
-                <legend>${title}</legend>
-                <img src="${img.replace('http://127.0.0.1:8000/https%3A', '/')}" class="mx-auto " alt="${title}-img" width="250" height="200">
-                <input type="text" name="name" class="form-control mb-3" value="${title}">
-                <textarea name="description" class="form-control mb-3">${description}</textarea>
-                <input type="number" name="price" class="form-control mb-3" value="${price}">
-                <input type="submit" class="btn btn-success w-100" value="Update">
-            </fieldset>
-        </form>
-        <form id="delete_form-${id}">
-            <input type="submit" class="btn btn-danger w-100" value="Delete">
-        </form>
-    </div>`;
-}
-
-const manage_container = document.getElementById('manage_container');
-
+// Main gallery data
 let galleryResponse = mainData('gallery')
-galleryResponse.then(resp => {
-    if (resp['ok'] == true){
-        const data = resp['data']
-        data.forEach(item => {
-            manage_container.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
-        })
-    }
-    else{
-        manage_container.innerHTML += `<p>Something went wrong: ${resp['message']}</p>`
-    }
+
+// Carousel section
+galleryResponse.then(data => {
+    data = data.data.slice(0,6)
+    data.forEach(item => {
+        carouselInner.innerHTML += carouselItem(item.name, item.description, item.cateogry, item.image, item.price)
+    })
 })
 
-manage_container.addEventListener('submit', function(e) {
+// Main section
+galleryResponse.then(resp => {
+        const data = resp['data']
+        data.forEach(item => {
+            manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
+        })
+    })
+    .catch(error =>{
+        showAlert('Backend server not running')
+})
+
+// Filtrar por categoría
+const categorySelector = document.getElementById('filter_category_select')
+categoryOptions(categorySelector)
+document.getElementById('filter_category_form').addEventListener('submit', function(e){
+    e.preventDefault()
+    manageContainer.innerHTML = ''
+    let categoryId = document.getElementById('filter_category_select').value
+    galleryResponse = mainData(`gallery-filters?category=${categoryId}`)
+    galleryResponse.then(data => {
+        data.data.forEach(item => {
+            manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image)
+        })
+    })
+})
+
+// Filter prices
+const formPrice = document.getElementById('filter_price_gallery')
+formPrice.addEventListener('submit', function(e){
+    e.preventDefault()
+    manageContainer.innerHTML = ''
+    const minValue = document.getElementById('min_val').value
+    const maxValue = document.getElementById('max_val').value
+    const listData = mainData(`gallery?price_range_min=${minValue}&price_range_max=${maxValue}`)
+    listData.then(data => {
+        data.data.forEach(item => {
+            manageContainer.innerHTML += PutDelTemplate(item.name, item.description, item.category.name, item.price, item.image)
+        })
+    })
+})
+
+// Search form input
+let searchForm = document.getElementById('search_form');
+searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    manageContainer.innerHTML = '';
+    let searchInput = document.getElementById('search_input').value;
+    let listData = mainData(`gallery?name=${searchInput}`);
+    listData.then(data => {
+        data.data.forEach(item => {
+            manageContainer.innerHTML += PutDelTemplate(item.name, item.description, item.category.name, item.price, item.image);
+        })
+    })
+})
+
+// Delete/Put
+manageContainer.addEventListener('submit', function(e) {
     e.preventDefault();
     let id = e.target.id
     if (id.includes('update')) {
@@ -83,17 +79,4 @@ manage_container.addEventListener('submit', function(e) {
     else {
         deleteForm(id);
     }
-})
-
-let searchForm = document.getElementById('search_form');
-searchForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        manage_container.innerHTML = '';
-        let searchInput = document.getElementById('search_input').value;
-        let listData = mainData(`gallery?price=${eval(searchInput)}`);
-        listData.then(data => {
-            data.data.forEach(item => {
-                manage_container.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
-            })
-        })
 })

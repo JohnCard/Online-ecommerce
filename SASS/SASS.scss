@@ -36,4 +36,8 @@
     .max-h-#{$i*20} {
         max-height: #{$i*20}px;
     }
+
+    .abs-bottom-#{$i*20}{
+        bottom: #{$i*20}px;
+    }
 }

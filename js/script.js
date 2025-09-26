@@ -1,28 +1,79 @@
-import { mainData, cardTemplate } from "./helpers.js";
+import { mainData, cardTemplate, showAlert, categoryOptions, carouselItem, verticalCard, carouselInner, galleryResponse } from "./helpers.js";
 
-// index.html
+// HTML containers
+const cardsContainer = document.getElementById('cards_container');
+const verticalCardInner = document.getElementById('vertical-card-inner') 
 
-const cards_container = document.getElementById('cards_container');
-
-const itemsList = mainData('gallery')
-itemsList.then(data => {
-    data.data.forEach(item => {
-        cards_container.insertAdjacentHTML('afterbegin', cardTemplate(item.name, item.description, item.category.name, item.price, item.image));
+// Carousel section
+galleryResponse.then(data => {
+    data = data.data.slice(0,6)
+    data.forEach(item => {
+        carouselInner.innerHTML += carouselItem(item.name, item.description, item.category.name, item.image, item.price)
     })
 })
-.catch(error => cards_container.innerHTML = `<h3 class="text-center fw-bold">No items found: ${error}</h2>`);
 
+// Vertical card inner
+galleryResponse.then(data => {
+    data = data.data.slice(0,6)
+    data.forEach(item => {
+        verticalCardInner.innerHTML += verticalCard(item.name, item.description, item.category.name, item.image, item.price)
+    })
+})
+
+// Gallery section
+galleryResponse.then(data => {
+    data.data.forEach(item => {
+        cardsContainer.insertAdjacentHTML('afterbegin', cardTemplate(item.name, item.description, item.category.name, item.price, item.image));
+    })
+})
+// Catching error
+.catch(error => 
+    // Llamamos a la función para mostrar el toast
+    showAlert('Backend server not running')
+);
+
+// Search form input by name field
 let searchForm = document.getElementById('search_form');
-searchForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        cards_container.innerHTML = '';
-        let searchInput = document.getElementById('search_input').value;
-        let listData = mainData(`gallery?price=${eval(searchInput)}`);
-        listData.then(data => {
-            data.data.forEach(item => {
-                cards_container.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image);
-            })
+searchForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    cardsContainer.innerHTML = '';
+    let searchInput = document.getElementById('search_input').value;
+    let listData = mainData(`gallery?name=${searchInput}`);
+    listData.then(data => {
+        data.data.forEach(item => {
+            cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image);
         })
+    })
+})
+
+// Filter prices
+const formPrice = document.getElementById('filter_price_gallery')
+formPrice.addEventListener('submit', function(e){
+    e.preventDefault()
+    cardsContainer.innerHTML = ''
+    const minValue = document.getElementById('min_val').value
+    const maxValue = document.getElementById('max_val').value
+    const listData = mainData(`gallery?price_range_min=${minValue}&price_range_max=${maxValue}`)
+    listData.then(data => {
+        data.data.forEach(item => {
+            cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image)
+        })
+    })
+})
+
+// Filter by category id
+const categorySelector = document.getElementById('filter_category_select')
+categoryOptions(categorySelector)
+document.getElementById('filter_category_form').addEventListener('submit', function(e){
+    e.preventDefault()
+    cardsContainer.innerHTML = ''
+    let categoryId = document.getElementById('filter_category_select').value
+    let listData = mainData(`gallery-filters?category=${categoryId}`)
+    listData.then(data => {
+        data.data.forEach(item => {
+            cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image)
+        })
+    })
 })
 
 // Excel report generation
