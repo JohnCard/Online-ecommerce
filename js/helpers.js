@@ -68,7 +68,7 @@ function cardTemplate(title, paragraph, category, price, img) {
                         <h5 class="card-title">${title}</h5>
                         <p class="card-text">${shortenText(paragraph, 100)}</p>
                         <p class="card-text">Category - ${category}</p>
-                        <p class="card-text">Price - <mark>$${price}</mark></p>
+                        <p class="card-text">Price - $<mark>${price}</mark></p>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@ function carouselItem(name, paragraph, category, img, price){
                     <h5>${name}</h5>
                     <p>${paragraph}</p>
                     <p>Category - ${category}</p>
-                    <p>Price - <mark>${price}</mark></p>
+                    <p>Price - $<mark>${price}</mark></p>
                 </div>
             </div>
             <div class="col-xxl-4">
@@ -184,7 +184,7 @@ function verticalCard(name, description, category, img, price){
             <div class="card-body">
                 <h5 class="card-title">${name}</h5>
                 <p class="card-text">${description}</p>
-                <p class="card-text">Price - <small class="text-body-secondary">${price}</small></p>
+                <p class="card-text">Price - $<small class="text-body-secondary">${price}</small></p>
                 <p class="card-text>Category - ${category}</p>
             </div>
         </div>
