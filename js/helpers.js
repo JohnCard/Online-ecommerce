@@ -137,11 +137,11 @@ function deleteForm(id){
 
 function PutDelTemplate(id, title, description, price, img) {
     return `
-    <div class="col-xxl-4">
+    <div class="col-xxl-4 mb-4">
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
-                <img src="${img.replace('http://127.0.0.1:8000/https%3A', '/')}" class="mx-auto d-block" alt="${title}-img" width="250" height="200">
+                <img src="${img.replace('http://127.0.0.1:8000/https%3A', '/')}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
                 <input type="text" name="name" class="form-control mb-3" value="${title}">
                 <textarea name="description" class="form-control mb-3">${description}</textarea>
                 <input type="number" name="price" class="form-control mb-3" value="${price}">
@@ -179,11 +179,11 @@ function verticalCard(name, description, category, img, price){
     img = img.replace('http://127.0.0.1:8000/https%3A', '/')
     return `
     <div class="col-xxl-4">
-        <div class="card">
-            <img src="${img}" class="card-img-top max-h-240" alt="${name}-img">
+        <div class="card min-h-450 mb-4">
+            <img src="${img}" class="card-img-top max-h-240 p-4" alt="${name}-img">
             <div class="card-body">
                 <h5 class="card-title">${name}</h5>
-                <p class="card-text">${description}</p>
+                <p class="card-text">${shortenText(description, 150)}</p>
                 <p class="card-text">Price - $<small class="text-body-secondary">${price}</small></p>
                 <p class="card-text>Category - ${category}</p>
             </div>
