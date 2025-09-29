@@ -44,27 +44,31 @@
             </div>
         </nav>
     </header>
-    <div class="container-fluid bg-dark text-light h-650 mt-55 pt-5">
+    <div class="container-fluid bg-dark text-light min-h-700 mt-55 pt-5">
         <div class="row">
             <h1 class="text-center mt-4 fw-light">Create new item</h1>
             <div class="col-xxl-4 col-11 mx-auto mt-25">
                 <form action="http://127.0.0.1:8000/ecommerce/gallery-create" id="register_form">
                     <div class="mb-3">
                         <label for="name">Type a name</label>
-                        <input type="text" name="name" id="name" class="form-control mt-2" aria-describedby="product-name">
+                        <input type="text" name="name" id="name" class="form-control mt-2" aria-describedby="product name">
                     </div>
                     <div class="mb-3">
                         <label for="description">Type a description</label>
-                        <textarea name="description" id="description" class="form-control mt-2" aria-describedby="product-description"></textarea>
+                        <textarea name="description" id="description" class="form-control mt-2" aria-describedby="product description"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="price">Price</label>
-                        <input type="number" name="price" id="price"  class="form-control mt-2" aria-describedby="product-price">
+                        <input type="number" name="price" id="price"  class="form-control mt-2" aria-describedby="product price">
                     </div>
                     <div class="mb-3">
                         <label for="category">Category</label>
-                        <select name="category" id="category" class="form-select mt-2" aria-label="Category select form section">
+                        <select name="category" id="category" class="form-select mt-2" aria-describedby="Category select form section">
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image">Image</label>
+                        <input type="file" name="image" id="image" class="form-control mt-2" aria-describedby="product image" required>
                     </div>
                     <input type="submit" value="Create item" class="btn btn-primary d-block w-100">
                 </form>

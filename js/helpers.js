@@ -55,7 +55,7 @@ function shortenText(texto, maxLongitud) {
 }
 
 function cardTemplate(title, paragraph, category, price, img) {
-    img = img.replace('http://127.0.0.1:8000/https%3A', '/')
+    img = img.replace('http://127.0.0.1:8000/img/https%3A', '/')
     return `
     <div class="col-xxl-4">
         <div class="card">
@@ -141,10 +141,12 @@ function PutDelTemplate(id, title, description, price, img) {
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
-                <img src="${img.replace('http://127.0.0.1:8000/https%3A', '/')}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
-                <input type="text" name="name" class="form-control mb-3" value="${title}">
-                <textarea name="description" class="form-control mb-3">${description}</textarea>
-                <input type="number" name="price" class="form-control mb-3" value="${price}">
+                <img src="${img.replace('http://127.0.0.1:8000/img/https%3A', '/')}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
+                <input type="text" name="name" class="form-control mb-3" value="${title}" aria-describedby="product name">
+                <textarea name="description" class="form-control mb-3" aria-describedby="product description">${description}</textarea>
+                <input type="number" name="price" class="form-control mb-3" value="${price}" aria-describedby="product value">
+                <select name="category" id="selector-${id}" class="form-select mb-3" aria-describedby="product category">
+                </select>
                 <input type="submit" class="btn btn-success w-100" value="Update">
             </fieldset>
         </form>
@@ -155,7 +157,7 @@ function PutDelTemplate(id, title, description, price, img) {
 }
 
 function carouselItem(name, paragraph, category, img, price){
-    img = img.replace('http://127.0.0.1:8000/https%3A', '/')
+    img = img.replace('http://127.0.0.1:8000/img/https%3A', '/')
     return `
     <div class="carousel-item" data-bs-interval="5000">
         <div class="row">
@@ -176,7 +178,7 @@ function carouselItem(name, paragraph, category, img, price){
 }
 
 function verticalCard(name, description, category, img, price){
-    img = img.replace('http://127.0.0.1:8000/https%3A', '/')
+    img = img.replace('http://127.0.0.1:8000/img/https%3A', '/')
     return `
     <div class="col-xxl-4">
         <div class="card min-h-450 mb-4">
@@ -185,7 +187,7 @@ function verticalCard(name, description, category, img, price){
                 <h5 class="card-title">${name}</h5>
                 <p class="card-text">${shortenText(description, 150)}</p>
                 <p class="card-text">Price - $<small class="text-body-secondary">${price}</small></p>
-                <p class="card-text>Category - ${category}</p>
+                <p class="card-text">Category - ${category.name}</p>
             </div>
         </div>
     </div>

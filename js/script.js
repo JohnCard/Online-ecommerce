@@ -16,7 +16,7 @@ galleryResponse.then(data => {
 galleryResponse.then(data => {
     data = data.data.slice(0,6)
     data.forEach(item => {
-        verticalCardInner.innerHTML += verticalCard(item.name, item.description, item.category.name, item.image, item.price)
+        verticalCardInner.innerHTML += verticalCard(item.name, item.description, item.category, item.image, item.price)
     })
 })
 

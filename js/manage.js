@@ -1,10 +1,7 @@
-import { mainData, showAlert, categoryOptions, updateForm, deleteForm, PutDelTemplate, carouselInner, carouselItem } from "./helpers.js";
+import { mainData, showAlert, categoryOptions, updateForm, deleteForm, PutDelTemplate, carouselInner, carouselItem, galleryResponse } from "./helpers.js";
 
 // HTML container
 const manageContainer = document.getElementById('manage_container');
-
-// Main gallery data
-let galleryResponse = mainData('gallery')
 
 // Carousel section
 galleryResponse.then(data => {
@@ -19,10 +16,23 @@ galleryResponse.then(resp => {
         const data = resp['data']
         data.forEach(item => {
             manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
-        })
+            let selectorId = document.getElementById(`selector-${item.id}`)
+            categoryOptions(selectorId)
     })
+})
     .catch(error =>{
-        showAlert('Backend server not running')
+        showAlert('Backend server not running well.')
+})
+
+galleryResponse.then(resp => {
+        const data = resp['data']
+        data.forEach(item => {
+            let selectorId = document.getElementById(`selector-${item.id}`)
+            categoryOptions(selectorId)
+    })
+})
+    .catch(error =>{
+        showAlert('Backend server not running well.')
 })
 
 // Filtrar por categoría
