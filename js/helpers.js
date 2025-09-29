@@ -37,12 +37,18 @@ async function mainData(char){
 // Main gallery data
 let galleryResponse = mainData('gallery')
 
-function categoryOptions(categorySelector){
+function categoryOptions(categorySelector, idCategory=null){
     const categoriesResponse = mainData('categories')
     categoriesResponse.then(resp => {
         const data = resp['data']
         data.forEach(item => {
-            categorySelector.innerHTML += `<option value="${item.id}">${item.name}</option>`;
+            let option = document.createElement('option')
+            option.value = item.id
+            option.textContent = item.name
+            if (idCategory == option.value) {
+                option.setAttribute('selected', '')
+            }
+            categorySelector.appendChild(option)
         })
     })
 }
