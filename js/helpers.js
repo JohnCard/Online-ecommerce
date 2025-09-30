@@ -24,7 +24,7 @@ async function mainData(char){
             {
             headers: {
                 'X-CSRFToken': csrftoken,
-                'Authorization': 'Token 53178c45167ec6e86c74d2e676c743eafb87ddbc'
+                'Authorization': 'Token ed93d9f561688cb8d1ed22776cba55173890673c'
             },
             });
         const data = await res.json();
@@ -72,7 +72,7 @@ function cardTemplate(title, paragraph, category, price, img) {
                 <div class="col-md-8">
                     <div class="card-body">
                         <h5 class="card-title">${title}</h5>
-                        <p class="card-text">${shortenText(paragraph, 100)}</p>
+                        <p class="card-text">${shortenText(paragraph, 150)}</p>
                         <p class="card-text">Category - ${category}</p>
                         <p class="card-text">Price - $<mark>${price}</mark></p>
                     </div>
@@ -170,7 +170,7 @@ function carouselItem(name, paragraph, category, img, price){
             <div class="col-xxl-8">
                 <div class="bg-body">
                     <h5>${name}</h5>
-                    <p>${paragraph}</p>
+                    <p>${shortenText(paragraph, 250)}</p>
                     <p>Category - ${category}</p>
                     <p>Price - $<mark>${price}</mark></p>
                 </div>

@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': csrftoken,
-                    'Authorization': 'Token 53178c45167ec6e86c74d2e676c743eafb87ddbc'
+                    'Authorization': 'Token ed93d9f561688cb8d1ed22776cba55173890673c'
                 },
                 body: formData
             })
