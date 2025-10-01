@@ -61,13 +61,12 @@ function shortenText(texto, maxLongitud) {
 }
 
 function cardTemplate(title, paragraph, category, price, img) {
-    img = img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')
     return `
     <div class="col-xxl-4">
         <div class="card">
             <div class="row align-items-center min-h-300 px-3">
                 <div class="col-md-4">
-                    <img src="${img}" class="img-fluid rounded" alt="Desktop MacBook">
+                    <img src="${img.slice(59)}" class="img-fluid rounded" alt="Desktop MacBook">
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
@@ -147,7 +146,7 @@ function PutDelTemplate(id, title, description, price, img) {
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
-                <img src="${img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
+                <img src="${img.slice(59)}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
                 <input type="text" name="name" class="form-control mb-3" value="${title}" aria-describedby="product name">
                 <textarea name="description" class="form-control mb-3" aria-describedby="product description">${description}</textarea>
                 <input type="number" name="price" class="form-control mb-3" value="${price}" aria-describedby="product value">
@@ -163,7 +162,7 @@ function PutDelTemplate(id, title, description, price, img) {
 }
 
 function carouselItem(name, paragraph, category, img, price){
-    img = img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')
+    img = img.slice(59)
     return `
     <div class="carousel-item" data-bs-interval="5000">
         <div class="row">
@@ -184,7 +183,7 @@ function carouselItem(name, paragraph, category, img, price){
 }
 
 function verticalCard(name, description, category, img, price){
-    img = img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')
+    img = img.slice(59)
     return `
     <div class="col-xxl-4">
         <div class="card min-h-450 mb-4">
