@@ -78,7 +78,7 @@ document.getElementById('filter_category_form').addEventListener('submit', funct
 
 // Excel report generation
 document.getElementById('excelReport').addEventListener('click', async () => {
-    const response = await fetch('http://127.0.0.1:8000/ecommerce/ecommerce-report');
+    const response = await fetch('https://codeandote-interview-production.up.railway.app/ecommerce/ecommerce-report');
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 

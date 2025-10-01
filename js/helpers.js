@@ -20,7 +20,7 @@ const carouselInner = document.querySelector('.carousel-inner')
 async function mainData(char){
     let csrftoken = getCookie('csrftoken');
     try{
-        const res = await fetch(`http://127.0.0.1:8000/ecommerce/${char}`,
+        const res = await fetch(`https://codeandote-interview-production.up.railway.app/ecommerce/${char}`,
             {
             headers: {
                 'X-CSRFToken': csrftoken,
@@ -61,7 +61,7 @@ function shortenText(texto, maxLongitud) {
 }
 
 function cardTemplate(title, paragraph, category, price, img) {
-    img = img.replace('http://127.0.0.1:8000/img/https%3A', '/')
+    img = img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')
     return `
     <div class="col-xxl-4">
         <div class="card">
@@ -110,7 +110,7 @@ function updateForm(id){
 
     id = id.split('-')[1]
 
-    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
+    fetch(`https://codeandote-interview-production.up.railway.app/ecommerce/gallery/${id}`, {
         method: 'PUT',
         headers: {
             'X-CSRFToken': csrftoken
@@ -128,7 +128,7 @@ function deleteForm(id){
 
     id = id.split('-')[1]
 
-    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
+    fetch(`https://codeandote-interview-production.up.railway.app/ecommerce/gallery/${id}`, {
     method: 'DELETE',
     headers: {
         'X-CSRFToken': csrftoken
@@ -147,7 +147,7 @@ function PutDelTemplate(id, title, description, price, img) {
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
-                <img src="${img.replace('http://127.0.0.1:8000/img/https%3A', '/')}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
+                <img src="${img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
                 <input type="text" name="name" class="form-control mb-3" value="${title}" aria-describedby="product name">
                 <textarea name="description" class="form-control mb-3" aria-describedby="product description">${description}</textarea>
                 <input type="number" name="price" class="form-control mb-3" value="${price}" aria-describedby="product value">
@@ -163,7 +163,7 @@ function PutDelTemplate(id, title, description, price, img) {
 }
 
 function carouselItem(name, paragraph, category, img, price){
-    img = img.replace('http://127.0.0.1:8000/img/https%3A', '/')
+    img = img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')
     return `
     <div class="carousel-item" data-bs-interval="5000">
         <div class="row">
@@ -184,7 +184,7 @@ function carouselItem(name, paragraph, category, img, price){
 }
 
 function verticalCard(name, description, category, img, price){
-    img = img.replace('http://127.0.0.1:8000/img/https%3A', '/')
+    img = img.replace('https://codeandote-interview-production.up.railway.app/img/https%3A', '/')
     return `
     <div class="col-xxl-4">
         <div class="card min-h-450 mb-4">
