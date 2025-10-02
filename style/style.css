@@ -2,6 +2,10 @@
 
 /* Main */
 
+.flexible-img{
+    height: 250px;
+}
+
 /* Error warning alert */
 
 #alert-toast {
@@ -30,4 +34,16 @@ a{
 a:hover{
     text-decoration: underline;
     cursor: pointer;
+}
+
+/* Media queries */
+
+/* Index */
+
+/* Main */
+
+@media screen and (max-width: 768px) {
+    .flexible-img{
+        height: 250px;
+    }
 }

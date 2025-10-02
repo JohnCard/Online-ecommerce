@@ -14,7 +14,7 @@ galleryResponse.then(data => {
 
 // Vertical card inner
 galleryResponse.then(data => {
-    data = data.data.slice(0,6)
+    data = data.data.slice(0,8)
     data.forEach(item => {
         verticalCardInner.innerHTML += verticalCard(item.name, item.description, item.category, item.image, item.price)
     })
@@ -78,7 +78,7 @@ document.getElementById('filter_category_form').addEventListener('submit', funct
 
 // Excel report generation
 document.getElementById('excelReport').addEventListener('click', async () => {
-    const response = await fetch('https://codeandote-interview-production.up.railway.app/ecommerce/ecommerce-report');
+    const response = await fetch('http://127.0.0.1:8000/ecommerce/ecommerce-report');
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 

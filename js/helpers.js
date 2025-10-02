@@ -14,13 +14,20 @@ function getCookie(name) {
     return cookieValue;
 }
 
+// Menos de 576px
+// Mas de 576px y Menos de 768px
+// Mas de 768px y Menos de 992px
+// Mas de 992px y Menos de 1200px
+// Mas de 1200px
+// Mas de 1400px
+
 // HTML container
 const carouselInner = document.querySelector('.carousel-inner')
 
 async function mainData(char){
     let csrftoken = getCookie('csrftoken');
     try{
-        const res = await fetch(`https://codeandote-interview-production.up.railway.app/ecommerce/${char}`,
+        const res = await fetch(`http://127.0.0.1:8000/ecommerce/${char}`,
             {
             headers: {
                 'X-CSRFToken': csrftoken,
@@ -61,15 +68,16 @@ function shortenText(texto, maxLongitud) {
 }
 
 function cardTemplate(title, paragraph, category, price, img) {
+    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
     return `
-    <div class="col-xxl-4">
+    <div class="col-sm-6 col-lg-4">
         <div class="card">
-            <div class="row align-items-center min-h-300 px-3">
-                <div class="col-md-4">
-                    <img src="${img.slice(59)}" class="img-fluid rounded" alt="Desktop MacBook">
+            <div class="row align-items-center p-3">
+                <div class="col-md-5 px-0">
+                    <img src="${img}" class="rounded-3 w-100 flexible-img" alt="Desktop MacBook">
                 </div>
-                <div class="col-md-8">
-                    <div class="card-body">
+                <div class="col-md-7 pe-0">
+                    <div class="card-body px-0">
                         <h5 class="card-title">${title}</h5>
                         <p class="card-text">${shortenText(paragraph, 150)}</p>
                         <p class="card-text">Category - ${category}</p>
@@ -109,7 +117,7 @@ function updateForm(id){
 
     id = id.split('-')[1]
 
-    fetch(`https://codeandote-interview-production.up.railway.app/ecommerce/gallery/${id}`, {
+    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
         method: 'PUT',
         headers: {
             'X-CSRFToken': csrftoken
@@ -127,7 +135,7 @@ function deleteForm(id){
 
     id = id.split('-')[1]
 
-    fetch(`https://codeandote-interview-production.up.railway.app/ecommerce/gallery/${id}`, {
+    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
     method: 'DELETE',
     headers: {
         'X-CSRFToken': csrftoken
@@ -141,12 +149,13 @@ function deleteForm(id){
 }
 
 function PutDelTemplate(id, title, description, price, img) {
+    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
     return `
-    <div class="col-xxl-4 mb-4">
+    <div class="col-11 col-md-6 col-xl-4 mb-4 mx-auto">
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
-                <img src="${img.slice(59)}" class="mx-auto d-block py-3" alt="${title}-img" width="250" height="200">
+                <img src="${img}" class="w-100 pb-3 rounded-2" alt="${title}-img" height="200">
                 <input type="text" name="name" class="form-control mb-3" value="${title}" aria-describedby="product name">
                 <textarea name="description" class="form-control mb-3" aria-describedby="product description">${description}</textarea>
                 <input type="number" name="price" class="form-control mb-3" value="${price}" aria-describedby="product value">
@@ -162,7 +171,7 @@ function PutDelTemplate(id, title, description, price, img) {
 }
 
 function carouselItem(name, paragraph, category, img, price){
-    img = img.slice(59)
+    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
     return `
     <div class="carousel-item" data-bs-interval="5000">
         <div class="row">
@@ -183,11 +192,11 @@ function carouselItem(name, paragraph, category, img, price){
 }
 
 function verticalCard(name, description, category, img, price){
-    img = img.slice(59)
+    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
     return `
-    <div class="col-xxl-4">
+    <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card min-h-450 mb-4">
-            <img src="${img}" class="card-img-top max-h-240 p-4" alt="${name}-img">
+            <img src="${img}" class="card-img-top max-h-240 p-3" alt="${name}-img">
             <div class="card-body">
                 <h5 class="card-title">${name}</h5>
                 <p class="card-text">${shortenText(description, 150)}</p>
