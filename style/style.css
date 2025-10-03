@@ -42,8 +42,8 @@ a:hover{
 
 /* Main */
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 768px) {
     .flexible-img{
-        height: 250px;
+        height: 280px;
     }
 }

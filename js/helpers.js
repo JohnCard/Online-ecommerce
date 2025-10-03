@@ -14,13 +14,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-// Menos de 576px
-// Mas de 576px y Menos de 768px
-// Mas de 768px y Menos de 992px
-// Mas de 992px y Menos de 1200px
-// Mas de 1200px
-// Mas de 1400px
-
 // HTML container
 const carouselInner = document.querySelector('.carousel-inner')
 
@@ -31,7 +24,7 @@ async function mainData(char){
             {
             headers: {
                 'X-CSRFToken': csrftoken,
-                'Authorization': 'Token ed93d9f561688cb8d1ed22776cba55173890673c'
+                'Authorization': 'Token 203bb7f875ebe1e7a9dc5008b1f5e03e1eab9ba4'
             },
             });
         const data = await res.json();
@@ -72,7 +65,7 @@ function cardTemplate(title, paragraph, category, price, img) {
     return `
     <div class="col-sm-6 col-lg-4">
         <div class="card">
-            <div class="row align-items-center p-3">
+            <div class="row align-items-center p-3 min-h-350">
                 <div class="col-md-5 px-0">
                     <img src="${img}" class="rounded-3 w-100 flexible-img" alt="Desktop MacBook">
                 </div>
@@ -178,7 +171,7 @@ function carouselItem(name, paragraph, category, img, price){
             <div class="col-xxl-8">
                 <div class="bg-body">
                     <h5>${name}</h5>
-                    <p>${shortenText(paragraph, 250)}</p>
+                    <p>${paragraph}</p>
                     <p>Category - ${category}</p>
                     <p>Price - $<mark>${price}</mark></p>
                 </div>
@@ -195,7 +188,7 @@ function verticalCard(name, description, category, img, price){
     img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
     return `
     <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="card min-h-450 mb-4">
+        <div class="card min-h-550  mb-4">
             <img src="${img}" class="card-img-top max-h-240 p-3" alt="${name}-img">
             <div class="card-body">
                 <h5 class="card-title">${name}</h5>
