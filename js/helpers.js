@@ -168,7 +168,7 @@ function carouselItem(name, paragraph, category, img, price){
     return `
     <div class="carousel-item" data-bs-interval="5000">
         <div class="row">
-            <div class="col-xxl-8">
+            <div class="col-lg-8">
                 <div class="bg-body">
                     <h5>${name}</h5>
                     <p>${paragraph}</p>
@@ -176,7 +176,7 @@ function carouselItem(name, paragraph, category, img, price){
                     <p>Price - $<mark>${price}</mark></p>
                 </div>
             </div>
-            <div class="col-xxl-4">
+            <div class="col-lg-4">
                 <img src="${img}" class="h-250" alt="${name}-image">
             </div>
         </div>
