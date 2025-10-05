@@ -118,7 +118,7 @@ function updateForm(id){
         body: formData
     })
     .then(data => {
-        window.location.href = 'https://online-ecommerce-ten.vercel.app/index.html'
+        window.location.href = '../index.html'
     })
     .catch(error => console.error(error));
 }
@@ -135,7 +135,7 @@ function deleteForm(id){
     },
     })
     .then(data => {
-        window.location.href = 'https://online-ecommerce-ten.vercel.app/index.html'
+        window.location.href = '../index.html'
     }
     )
     .catch(error => console.error(error));
