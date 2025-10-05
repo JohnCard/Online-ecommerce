@@ -19,7 +19,7 @@ if (form) {
             body: formData
         })
         .then(data => {
-            window.location.href = 'http://127.0.0.1:5500/index.html'
+            window.location.href = 'https://online-ecommerce-ten.vercel.app'
         })
         .catch(error => 
             showAlert('Backend server not running')
