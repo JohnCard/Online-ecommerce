@@ -24,7 +24,7 @@ async function mainData(char){
             {
             headers: {
                 'X-CSRFToken': csrftoken,
-                'Authorization': 'Token 203bb7f875ebe1e7a9dc5008b1f5e03e1eab9ba4'
+                'Authorization': 'Token 1c80c025168e077d6f69dd31700c83442da49cd9'
             },
             });
         const data = await res.json();
