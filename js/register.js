@@ -1,5 +1,6 @@
 import { getCookie, categoryOptions, showAlert } from "./helpers.js";
 
+const token = window.CONFIG.TOKEN
 const inputSelector = document.getElementById('category')
 
 categoryOptions(inputSelector)
@@ -14,7 +15,7 @@ if (form) {
             method: 'POST',
             headers: {
                 'X-CSRFToken': csrftoken,
-                'Authorization': 'Token 203bb7f875ebe1e7a9dc5008b1f5e03e1eab9ba4'
+                'Authorization': `Token ${token}`
             },
             body: formData
         })

@@ -1,4 +1,5 @@
-// Función para obtener el token CSRF de la cookie
+const token = window.CONFIG.TOKEN
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -24,7 +25,7 @@ async function mainData(char){
             {
             headers: {
                 'X-CSRFToken': csrftoken,
-                'Authorization': 'Token 1c80c025168e077d6f69dd31700c83442da49cd9'
+                'Authorization': `Token ${token}`
             },
             });
         const data = await res.json();
@@ -61,7 +62,9 @@ function shortenText(texto, maxLongitud) {
 }
 
 function cardTemplate(title, paragraph, category, price, img) {
-    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
+    if (img.includes('fakestoreapi')){
+        img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
+    }
     return `
     <div class="col-sm-6 col-lg-4">
         <div class="card">
@@ -142,9 +145,11 @@ function deleteForm(id){
 }
 
 function PutDelTemplate(id, title, description, price, img) {
-    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
+    if (img.includes('fakestoreapi')){
+        img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
+    }
     return `
-    <div class="col-11 col-md-6 col-xl-4 mb-4 mx-auto">
+    <div class="col-11 col-md-6 col-xl-4 mb-4">
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
                 <legend>${title}</legend>
@@ -164,7 +169,9 @@ function PutDelTemplate(id, title, description, price, img) {
 }
 
 function carouselItem(name, paragraph, category, img, price){
-    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
+    if (img.includes('fakestoreapi')){
+        img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
+    }
     return `
     <div class="carousel-item" data-bs-interval="5000">
         <div class="row">
@@ -185,7 +192,9 @@ function carouselItem(name, paragraph, category, img, price){
 }
 
 function verticalCard(name, description, category, img, price){
-    img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/https://images.pexels.com/photos/', 'https://images.pexels.com/photos/')
+    if (img.includes('fakestoreapi')){
+        img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
+    }
     return `
     <div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card min-h-550  mb-4">

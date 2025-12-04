@@ -11,11 +11,12 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md bg-secondary-subtle fixed-top">
+        <nav class="navbar navbar-expand-sm bg-secondary-subtle fixed-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="../index.html">
                     <img src="../img/navbar_ecommerce_icon.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                    Ecommerce</a>
+                    Ecommerce
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -27,16 +28,10 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="../index.html">Home</a>
+                                <a class="nav-link" aria-current="page" href="../index.html">Home</a>
                             </li>
-                            <li class="nav-item dropdown me-5">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="form.html">Register new item</a></li>
-                                    <li><a class="dropdown-item" href="manage.html">Edit & Delete items</a></li>
-                                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="manage.html">Edit & Delete items</a>
                             </li>
                         </ul>
                     </div>
@@ -160,5 +155,6 @@
     <script src="../bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../js/helpers.js" type="module"></script>
     <script src="../js/register.js" type="module"></script>
+    <script src="../js/config.js"></script>
 </body>
 </html>
