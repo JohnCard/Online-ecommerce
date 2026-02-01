@@ -1,0 +1,3 @@
+window.CONFIG = {
+    TOKEN: "1c80c025168e077d6f69dd31700c83442da49cd9",
+}
