@@ -1,3 +1,3 @@
 window.CONFIG = {
-    TOKEN: "1c80c025168e077d6f69dd31700c83442da49cd9",
+    TOKEN: "ed93d9f561688cb8d1ed22776cba55173890673c",
 }
