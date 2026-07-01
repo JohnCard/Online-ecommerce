@@ -1,84 +1,72 @@
 import { mainData, cardTemplate, showAlert, categoryOptions, carouselItem, verticalCard, carouselInner, galleryResponse } from "./helpers.js";
 
-// HTML containers
-const cardsContainer = document.getElementById('cards_container');
+//* Main containers
+// Filtering form
+const filteringForm = document.querySelector('.filtering-form')
+// Extract category selector / select input type from filtering form
+const categorySelector = document.querySelector('.filter_category_select')
+// Vertical card items container
 const verticalCardInner = document.getElementById('vertical-card-inner') 
-
-// Carousel section
+// Cards container
+const cardsContainer = document.getElementById('cards_container')
+//* Carousel
 galleryResponse.then(data => {
-    data = data.data.slice(0,6)
-    data.forEach(item => {
-        carouselInner.innerHTML += carouselItem(item.name, item.description, item.category.name, item.image, item.price)
+    data = data.slice(0,6)
+    data.forEach((item, index) => {
+        const activeClass = index == 0 ? 'active' : ''
+        carouselInner.innerHTML += carouselItem(item.name, item.description, item.categories, item.image, item.price, item.stock, activeClass)
     })
 })
-
-// Vertical card inner
+//* Apply category set to categories input located on filtering form
+categoryOptions(categorySelector)
+//* Vertical card inner
 galleryResponse.then(data => {
-    data = data.data.slice(0,8)
+    data = data.slice(0,8)
     data.forEach(item => {
-        verticalCardInner.innerHTML += verticalCard(item.name, item.description, item.category, item.image, item.price)
+        verticalCardInner.innerHTML += verticalCard(item.name, item.description, item.categories, item.image, item.price, item.stock)
     })
 })
-
-// Gallery section
+//* Gallery section
 galleryResponse.then(data => {
-    data.data.forEach(item => {
-        cardsContainer.insertAdjacentHTML('afterbegin', cardTemplate(item.name, item.description, item.category.name, item.price, item.image));
+    data.forEach(item => {
+        cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.categories, item.price, item.image, item.stock)
     })
 })
 // Catching error
 .catch(error => 
     // Llamamos a la función para mostrar el toast
     showAlert('Backend server not running')
-);
-
-// Search form input by name field
-let searchForm = document.getElementById('search_form');
-searchForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    cardsContainer.innerHTML = '';
-    let searchInput = document.getElementById('search_input').value;
-    let listData = mainData(`gallery?name=${searchInput}`);
-    listData.then(data => {
-        data.data.forEach(item => {
-            cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image);
-        })
-    })
-})
-
-// Filter prices
-const formPrice = document.getElementById('filter_price_gallery')
-formPrice.addEventListener('submit', function(e){
+)
+//* Applying filters
+filteringForm.addEventListener('submit', async (e) => {
+    // prevent default actions
     e.preventDefault()
+    // set empty manage container
     cardsContainer.innerHTML = ''
-    const minValue = document.getElementById('min_val').value
-    const maxValue = document.getElementById('max_val').value
-    const listData = mainData(`gallery?price_range_min=${minValue}&price_range_max=${maxValue}`)
-    listData.then(data => {
-        data.data.forEach(item => {
-            cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image)
-        })
+    // extract name field value
+    const name = document.getElementById('name').value
+    // extract min and max stock number type inputs from filtering form
+    const minStock = document.getElementById('min-stock').value
+    const maxStock = document.getElementById('max-stock').value
+    // extract min and max value number type inputs from filtering form
+    const minValue = document.getElementById('min-val').value
+    const maxValue = document.getElementById('max-val').value
+    //extract ordering filter
+    const order = document.getElementById('filter-ordering').value
+    // extract set values from category selector input
+    const values = [...categorySelector.selectedOptions].map(op => op.value)
+    // request new data for manage container
+    let listData = await mainData(`gallery?ordering=${order}&categories__in=${values}&price_min=${minValue}&price_max=${maxValue}&name=${name}&stock_max=${maxStock}&stock_min=${minStock}`)
+    // remove duplicated items
+    listData = listData.filter((item, i, arr) => i === arr.findIndex(x => x.id === item.id))
+    // map new set to manage container
+    listData.map(item => {
+        cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.categories, item.price, item.image, item.stock)
     })
 })
-
-// Filter by category id
-const categorySelector = document.getElementById('filter_category_select')
-categoryOptions(categorySelector)
-document.getElementById('filter_category_form').addEventListener('submit', function(e){
-    e.preventDefault()
-    cardsContainer.innerHTML = ''
-    let categoryId = document.getElementById('filter_category_select').value
-    let listData = mainData(`gallery-filters?category=${categoryId}`)
-    listData.then(data => {
-        data.data.forEach(item => {
-            cardsContainer.innerHTML += cardTemplate(item.name, item.description, item.category.name, item.price, item.image)
-        })
-    })
-})
-
-// Excel report generation
+//* Excel report generation
 document.getElementById('excelReport').addEventListener('click', async () => {
-    const response = await fetch('http://127.0.0.1:8000/ecommerce/ecommerce-report');
+    const response = await fetch('http://127.0.0.1:8000/ecommerce/gallery-report');
     const blob = await response.blob();
     const url = window.URL.createObjectURL(blob);
 

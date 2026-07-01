@@ -29,24 +29,23 @@ async function mainData(char){
             },
             });
         const data = await res.json();
-        return { ok: true, data: data.results };
-    } catch (error) {
-        return { ok: false, message: error };
+        return data
+    }catch(error){
+        console.log(error)
     }
 }
 
 // Main gallery data
 let galleryResponse = mainData('gallery')
+const categoriesResponse = mainData('categories')
 
-function categoryOptions(categorySelector, idCategory=null){
-    const categoriesResponse = mainData('categories')
-    categoriesResponse.then(resp => {
-        const data = resp['data']
-        data.forEach(item => {
-            let option = document.createElement('option')
+function categoryOptions(categorySelector, categories=null){
+    categoriesResponse.then(response =>{
+        response.forEach(item => {
+            const option = document.createElement('option')
             option.value = item.id
             option.textContent = item.name
-            if (idCategory == option.value) {
+            if(categories && categories.some(elem => elem.id == item.id)){
                 option.setAttribute('selected', '')
             }
             categorySelector.appendChild(option)
@@ -55,13 +54,13 @@ function categoryOptions(categorySelector, idCategory=null){
 }
 
 function shortenText(texto, maxLongitud) {
-  if (texto.length <= maxLongitud) {
+  if(texto.length <= maxLongitud){
     return texto;
   }
   return texto.slice(0, maxLongitud) + '...';
 }
 
-function cardTemplate(title, paragraph, category, price, img) {
+function cardTemplate(title, paragraph, categories, price, img, stock) {
     if (img.includes('fakestoreapi')){
         img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
     }
@@ -75,14 +74,16 @@ function cardTemplate(title, paragraph, category, price, img) {
                 <div class="col-md-7 pe-0">
                     <div class="card-body px-0">
                         <h5 class="card-title">${title}</h5>
+                        <p class="card-text">value - $<mark>${price}</mark></p>
+                        <p class="card-text">stock - ${stock}</p>
+                        <h6>Categories</h6>
+                        <p class="card-text">${categories.map((category) => category.name).join(', ')}</p>
                         <p class="card-text">${shortenText(paragraph, 150)}</p>
-                        <p class="card-text">Category - ${category}</p>
-                        <p class="card-text">Price - $<mark>${price}</mark></p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>`;
+    </div>`
 }
 
 function showAlert(error) {
@@ -106,24 +107,26 @@ function showAlert(error) {
     }, 3000); // 3 segundos de duración del toast
 }
 
-function updateForm(id){
+async function updateForm(id){
     const csrftoken = getCookie('csrftoken');
     let form = document.getElementById(id);
     const formData = new FormData(form);
 
     id = id.split('-')[1]
 
-    fetch(`http://127.0.0.1:8000/ecommerce/gallery/${id}`, {
+    fetch(`http://127.0.0.1:8000/ecommerce/item-api/items/${id}/`, {
         method: 'PUT',
         headers: {
             'X-CSRFToken': csrftoken
         },
         body: formData
     })
-    .then(data => {
+    .then(() => {
         window.location.href = '../index.html'
     })
-    .catch(error => console.error(error));
+    .catch(error =>{
+        console.error(error)
+    })
 }
 
 function deleteForm(id){
@@ -144,20 +147,19 @@ function deleteForm(id){
     .catch(error => console.error(error));
 }
 
-function PutDelTemplate(id, title, description, price, img) {
+function PutDelTemplate(id, title, description, price, img, stock) {
     if (img.includes('fakestoreapi')){
         img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
     }
-    return `
-    <div class="col-11 col-md-6 col-xl-4 mb-4">
+    return `<div class="col-11 col-md-6 col-xl-4 mb-4">
         <form id="update_form-${id}" class="mb-2">
             <fieldset>
-                <legend>${title}</legend>
                 <img src="${img}" class="w-100 pb-3 rounded-2" alt="${title}-img" height="200">
                 <input type="text" name="name" class="form-control mb-3" value="${title}" aria-describedby="product name">
                 <textarea name="description" class="form-control mb-3" aria-describedby="product description">${description}</textarea>
                 <input type="number" name="price" class="form-control mb-3" value="${price}" aria-describedby="product value">
-                <select name="category" id="selector-${id}" class="form-select mb-3" aria-describedby="product category">
+                <input type="number" name="stock" class="form-control mb-3" value="${stock}" aria-describedby="product stock">
+                <select name="categories" id="selector-${id}" class="form-select mb-3" aria-describedby="product category list" multiple>
                 </select>
                 <input type="submit" class="btn btn-success w-100" value="Update">
             </fieldset>
@@ -165,33 +167,33 @@ function PutDelTemplate(id, title, description, price, img) {
         <form id="delete_form-${id}">
             <input type="submit" class="btn btn-danger w-100" value="Delete">
         </form>
-    </div>`;
+    </div>`
 }
 
-function carouselItem(name, paragraph, category, img, price){
+function carouselItem(name, paragraph, categories, img, price, stock, activeClass=''){
     if (img.includes('fakestoreapi')){
         img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
     }
-    return `
-    <div class="carousel-item" data-bs-interval="5000">
+    return `<div class="carousel-item ${activeClass}" data-bs-interval="5000">
         <div class="row">
             <div class="col-lg-8">
                 <div class="bg-body">
                     <h5>${name}</h5>
+                    <p>value - $<mark>${price}</mark></p>
+                    <p>stock - ${stock}</p>
+                    <h6>Categories</h6>
+                    <p class="card-text">${categories.map((category) => category.name).join(', ')}</p>
                     <p>${paragraph}</p>
-                    <p>Category - ${category}</p>
-                    <p>Price - $<mark>${price}</mark></p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <img src="${img}" class="h-250" alt="${name}-image">
             </div>
         </div>
-    </div>
-    `
+    </div>`
 }
 
-function verticalCard(name, description, category, img, price){
+function verticalCard(name, description, categories, img, price, stock){
     if (img.includes('fakestoreapi')){
         img = img.replace('https://res.cloudinary.com/de1slf4r1/image/upload/v1/media/', '')
     }
@@ -201,13 +203,15 @@ function verticalCard(name, description, category, img, price){
             <img src="${img}" class="card-img-top max-h-240 p-3" alt="${name}-img">
             <div class="card-body">
                 <h5 class="card-title">${name}</h5>
+                <p class="card-text">value - $<small class="text-body-secondary">${price}</small></p>
+                <p class="card-text">stock - ${stock}</p>
+                <h6>Categories</h6>
+                <p class="card-text">${categories.map((category) => category.name).join(', ')}</p>
                 <p class="card-text">${shortenText(description, 150)}</p>
-                <p class="card-text">Price - $<small class="text-body-secondary">${price}</small></p>
-                <p class="card-text">Category - ${category.name}</p>
             </div>
         </div>
     </div>
     `
 }
 
-export { mainData, getCookie, cardTemplate, categoryOptions, showAlert, updateForm, deleteForm, PutDelTemplate, carouselItem, carouselInner, galleryResponse, verticalCard};
+export { mainData, getCookie, cardTemplate, categoryOptions, showAlert, updateForm, deleteForm, PutDelTemplate, carouselItem, carouselInner, galleryResponse, verticalCard, categoriesResponse};

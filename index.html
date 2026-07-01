@@ -45,21 +45,6 @@
     </header>
     <div id="carouselExampleDark" class="carousel carousel-dark slide mt-100">
         <div class="carousel-inner w-75 mx-auto">
-            <div class="carousel-item active" data-bs-interval="5000">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="bg-body">
-                            <h5>Desktop MacBook</h5>
-                            <p>The Apple MacBook Desktop combines sleek design and powerful performance in one elegant package. Equipped with the latest M1 or M2 chip (depending on the model), it delivers exceptional speed and energy efficiency for seamless multitasking, creative projects, and professional work.</p>
-                            <p>Price - $<mark>981238</mark></p>
-                            <p>Category - Desktop MacBook team</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <img src="img/desktop_macbook.jpg" class="h-250" alt="Desktop MacBook">
-                    </div>
-                </div>
-            </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -70,66 +55,70 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-    <h1 class="mt-1 text-center">Gallery</h1>
     <main class="container-fluid">
-        <div class="row my-5" id="vertical-card-inner">
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-lg-5 col-xl-4">
-                <form role="search" id="filter_category_form" class="row">
-                    <div class="col-sm-6 mb-3">
-                        <select id="filter_category_select" class="form-select" aria-label="Filter category selector"></select>
-                    </div>
-                    <div class="col-sm-6 mb-3">
-                        <button class="btn btn-success w-100" type="submit">Filter category</button>
-                    </div>
-                </form>
-            </div>
-            <div class="col-md-6 col-lg-7 col-xl-8">
-                <form role="search" id="filter_price_gallery" class="row">
-                    <div class="col-sm-6 col-lg-4 mb-3">
-                        <input type="number" id="min_val" class="form-control" placeholder="Minimum value">
-                    </div>
-                    <div class="col-sm-6 col-lg-4 mb-3">
-                        <input type="number" id="max_val" class="form-control" placeholder="Maximum value">
-                    </div>
-                    <div class="col-lg-4 mb-3">
-                        <button class="btn btn-success w-100" type="submit">Filter price</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="row row-gap-4 mb-5" id="cards_container">
-            <!-- Cards inserted with JavaScript -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
-                <symbol id="check-circle-fill" viewBox="0 0 16 16">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                </symbol>
-                <symbol id="info-fill" viewBox="0 0 16 16">
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                </symbol>
-                <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
-                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                </symbol>
-            </svg>
-
-            <div id="alert-toast" class="alert alert-warning d-flex align-items-center max-h-80 max-w-480 position-fixed abs-bottom-60 end-0 p-3" role="alert" style="display: none;">
-                <svg class="bi flex-shrink-0 max-h-60 max-w-100" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                <div id="alert-toast-error">
-                    
+        <h2>Filtering section</h2>
+        <form role="search" class="filtering-form">
+            <div class="row">
+                <div class="col-sm-6 mb-3">
+                    <input type="text" id="name" class="form-control" placeholder="name">
+                </div>
+                <div class="col-sm-6 mb-3">
+                    <select class="form-select filter_category_select" aria-label="Filter category selector" multiple></select>
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-3">
+                    <input type="number" id="min-val" class="form-control" placeholder="Minimum value">
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-3">
+                    <input type="number" id="max-val" class="form-control" placeholder="Maximum value">
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-3">
+                    <input type="number" id="min-stock" class="form-control" placeholder="Minimum stock">
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-3">
+                    <input type="number" id="max-stock" class="form-control" placeholder="Maximum stock">
+                </div>
+                <div class="col-sm-6 col-lg-4 mb-3">
+                    <label for="filter-ordering" class="form-label">ordering filter</label>
+                    <select class="form-select" aria-label="Filter ordering params" id='filter-ordering'>
+                        <option value="price">value</option>
+                        <option value="stock">stock</option>
+                    </select>
+                </div>
+                <div class="col-lg-4 mb-3">
+                    <input class="btn btn-success w-100" type="submit"/>
                 </div>
             </div>
-            <button class="btn btn-dark w-75 mx-auto">See all results</button>
-            <button class="btn btn-success w-75 mx-auto" id="excelReport">Download excel report</button>
-        </div>
+        </form>
+        <h2 class="mt-1 text-center">Vertical gallery</h2>
+        <div class="row my-5" id="vertical-card-inner"></div>
+        <h1 class="text-center">Official gallery</h1>
+        <div class="row row-gap-4 mb-5" id="cards_container"></div>
     </main>
     <div class="container">
         <div class="row">
+            <button class="btn btn-dark w-75 mx-auto">See all results</button>
+            <button class="btn btn-success w-75 mx-auto mt-3" id="excelReport">Download excel report</button>
             <h6>Electronics</h6>
             <p class="fs-12">Amazon.com.mx has a huge selection of electronics for everyone. Shop for TVs, laptops, computer components, tablets, graphics cards, external drives, internal storage, iPads, Bluetooth speakers, headphones, iPhones, cell phones, cases, the Samsung Galaxy S6, and more. We carry top brands like Apple, Samsung, Asus, LG, Sonos, Nikon, Bose, Canon, Garmin, Microsoft, HP, Kingston, Sony, Nexus, and HTC. Looking for the latest in technology? Want to have a blast? We have technology like DJI and Parrot drones, smart watches, and products for home theater enjoyment like Yamaha, Bose, Phillips, sound bars, Sennheiser, and Haier. We also offer TVs like LG and Samsung, 4K TVs, 4K TVs, Smart TVs, headphones, over-ear headphones, supra-aural headphones, in-ear headphones, and over-ear headphones. Cameras for your adventures like GoPro, EOS Rebel, and Nikon. Don't get lost with our selection of GPS devices, including Garmin, Mio, and TomTom.</p>
         </div>
     </div>
     <button class="btn btn-secondary w-100 rounded-0" href="#">Top of page</button>
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+        <symbol id="check-circle-fill" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+        </symbol>
+        <symbol id="info-fill" viewBox="0 0 16 16">
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+        </symbol>
+        <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </symbol>
+    </svg>
+    <div id="alert-toast" class="alert alert-warning d-flex align-items-center max-h-80 max-w-480 position-fixed abs-bottom-60 end-0 p-3" role="alert" style="display: none;">
+        <svg class="bi flex-shrink-0 max-h-60 max-w-100" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div id="alert-toast-error">
+        </div>
+    </div>
     <footer class="container-fluid bg-dark">
         <div class="row mb-5 pt-5 text-light">
             <div class="col-xxl-3">

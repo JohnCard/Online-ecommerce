@@ -1,14 +1,14 @@
 import { getCookie, categoryOptions, showAlert } from "./helpers.js";
 
 const token = window.CONFIG.TOKEN
-const inputSelector = document.getElementById('category')
+const inputSelector = document.getElementById('category-select')
+const form = document.getElementById('register_form')
 
 categoryOptions(inputSelector)
 
-const form = document.getElementById('register_form');
-if (form) {
+if(form){
     form.addEventListener('submit', function(e) {
-        e.preventDefault();
+        e.preventDefault()
         const csrftoken = getCookie('csrftoken');
         const formData = new FormData(form);
         fetch(form.action, {

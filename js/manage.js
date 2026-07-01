@@ -1,92 +1,90 @@
 import { mainData, showAlert, categoryOptions, updateForm, deleteForm, PutDelTemplate, carouselInner, carouselItem, galleryResponse } from "./helpers.js";
 
+//* Functions
+// Apply category set function
 function applyOptions(dataList){
     // Apply options for each selector
-    dataList.then(resp => {
-        const data = resp['data']
-        data.forEach(item => {
+    dataList.then(response => {
+        response.forEach(item => {
             const selectorId = document.getElementById(`selector-${item.id}`)
-            categoryOptions(selectorId, item.category.id)
+            categoryOptions(selectorId, item.categories)
         })
     })
-    .catch(error =>{
+    .catch(() =>{
         showAlert('Backend server not running well.')
     })
 }
-
-// HTML container
+//* Init variables
+// Request category set
+const categorySet = await mainData('categories')
+// Filtering form
+const filteringForm = document.querySelector('.filtering-form')
+// Extract category selector / select input type from filtering form
+const categorySelector = document.querySelector('.filter_category_select')
+// Extract manage container
 const manageContainer = document.getElementById('manage_container');
-
-// Carousel section
+//* Filling input and containers with main data
+// Carousel
 galleryResponse.then(data => {
-    data = data.data.slice(0,6)
-    data.forEach(item => {
-        carouselInner.innerHTML += carouselItem(item.name, item.description, item.cateogry, item.image, item.price)
+    data = data.slice(0,6)
+    data.forEach((item, index) => {
+        const activeClass = index == 0 ? 'active' : ''
+        carouselInner.innerHTML += carouselItem(item.name, item.description, item.categories, item.image, item.price, item.stock, activeClass)
     })
 })
-
-// Main section
-galleryResponse.then(resp => {
-    const data = resp['data']
-    data.forEach(item => {
-        manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
+//* Apply category set to categories input located on filtering form
+categoryOptions(categorySelector)
+//* Filling manage (.row) container
+galleryResponse.then(response => {
+    response.forEach(item => {
+        manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image, item.stock)
     })
-})
-.catch(error =>{
+    //* Apply category sets to all PUT/DELETE template category selector or (`<select>`) inputs
+    applyOptions(galleryResponse)
+}) //! Backend server not running
+.catch(() =>{
     showAlert('Backend server not running well.')
 })
-
-applyOptions(galleryResponse)
-
-// Filtrar por categoría
-const categorySelector = document.getElementById('filter_category_select')
-categoryOptions(categorySelector)
-document.getElementById('filter_category_form').addEventListener('submit', function(e){
+//* Applying filters
+filteringForm.addEventListener('submit', async (e) => {
+    // prevent default actions
     e.preventDefault()
+    // set empty manage container
     manageContainer.innerHTML = ''
-    let categoryId = document.getElementById('filter_category_select').value
-    let listData = mainData(`gallery-filters?category=${categoryId}`)
-    listData.then(data => {
-        data.data.forEach(item => {
-            manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image)
+    // extract name field value
+    const name = document.getElementById('name').value
+    // extract min and max stock number type inputs from filtering form
+    const minStock = document.getElementById('min-stock').value
+    const maxStock = document.getElementById('max-stock').value
+    // extract min and max value number type inputs from filtering form
+    const minValue = document.getElementById('min-val').value
+    const maxValue = document.getElementById('max-val').value
+    //extract ordering filter
+    const order = document.getElementById('filter-ordering').value
+    // extract set values from category selector input
+    const values = [...categorySelector.selectedOptions].map(op => op.value)
+    // request new data for manage container
+    let listData = await mainData(`gallery?ordering=${order}&categories__in=${values}&price_min=${minValue}&price_max=${maxValue}&name=${name}&stock_max=${maxStock}&stock_min=${minStock}`)
+    // remove duplicated items
+    listData = listData.filter((item, i, arr) => i === arr.findIndex(x => x.id === item.id))
+    // map new set to manage container
+    listData.map(item => {
+        manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image, item.stock)
+        const selector = document.getElementById(`selector-${item.id}`)
+        let itemCategories = item.categories
+        categorySet.forEach(item => {
+            const option = document.createElement('option')
+            option.value = item.id
+            option.textContent = item.name
+            if(itemCategories.some(elem => elem.id == item.id)){
+                option.setAttribute('selected', '')
+            }
+            selector.appendChild(option)
         })
     })
-    applyOptions(listData)
 })
-
-// Filter prices
-const formPrice = document.getElementById('filter_price_gallery')
-formPrice.addEventListener('submit', function(e){
-    e.preventDefault()
-    manageContainer.innerHTML = ''
-    const minValue = document.getElementById('min_val').value
-    const maxValue = document.getElementById('max_val').value
-    const listData = mainData(`gallery?price_range_min=${minValue}&price_range_max=${maxValue}`)
-    listData.then(data => {
-        data.data.forEach(item => {
-            manageContainer.innerHTML += PutDelTemplate(item.id ,item.name, item.description, item.price, item.image)
-        })
-    })
-    applyOptions(listData)
-})
-
-// Search form input
-let searchForm = document.getElementById('search_form');
-searchForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    manageContainer.innerHTML = '';
-    let searchInput = document.getElementById('search_input').value;
-    let listData = mainData(`gallery?name=${searchInput}`);
-    listData.then(data => {
-        data.data.forEach(item => {
-            manageContainer.innerHTML += PutDelTemplate(item.id, item.name, item.description, item.price, item.image);
-        })
-    })
-    applyOptions(listData)
-})
-
 // Delete/Put
-manageContainer.addEventListener('submit', function(e) {
+manageContainer.addEventListener('submit', (e) => {
     e.preventDefault();
     let id = e.target.id
     if (id.includes('update')) {
