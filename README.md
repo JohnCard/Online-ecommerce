@@ -6,7 +6,7 @@ Backend: https://github.com/JohnCard/Backend---codeandote
 
 Frontend: online-ecommerce-ten.vercel.app
 
-Demostrative video - https://youtu.be/LYhuUxPeQl4
+Demostrative video - https://youtu.be/sA1ci8obzws
 
 No database setup is required, nor do you need to create a new Django instance. The backend server already comes pre-configured with its own external database, so you won’t need to worry about the data displayed on the frontend client/server.
 
